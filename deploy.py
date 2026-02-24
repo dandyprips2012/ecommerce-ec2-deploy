@@ -94,7 +94,6 @@ def main():
             copy_template(rel_path)
 
     # 3. Copy automation files
-    # Choose traffic.js or automate.js based on config, default to traffic.js
     automation_script = config.get('automation_script', 'traffic.js')
     if automation_script not in ['traffic.js', 'automate.js']:
         automation_script = 'traffic.js'
@@ -117,7 +116,8 @@ def main():
             need_install = not are_requirements_installed(service)
 
         if need_install:
-            run_cmd(f'source venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt',
+            # Use '.' instead of 'source' for POSIX compatibility
+            run_cmd(f'. venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt',
                     cwd=service_path, shell=True)
             mark_requirements_installed(service)
         else:
@@ -134,7 +134,8 @@ def main():
     # 7. Seed the database
     print("\nSeeding database...")
     seed_venv = os.path.join(ROOT_DIR, 'backend', 'product-service', 'venv', 'bin', 'activate')
-    run_cmd(f'source {seed_venv} && python seed.py', cwd=os.path.join(ROOT_DIR, 'backend'), shell=True)
+    # Use '.' for activation
+    run_cmd(f'. {seed_venv} && python seed.py', cwd=os.path.join(ROOT_DIR, 'backend'), shell=True)
 
     # 8. Start all services
     print("\nStarting all services...")
