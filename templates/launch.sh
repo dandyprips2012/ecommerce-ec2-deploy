@@ -23,20 +23,33 @@ cd ../..
 
 sleep 10
 
-# Seed the databases (already done by deploy.py, but keep for idempotency)
+# Seed the databases with retry (up to 5 times) – gives tables time to be created
 cd backend
-source product-service/venv/bin/activate
-python seed.py
+max_retries=5
+retry_count=0
+until [ $retry_count -ge $max_retries ]
+do
+    source product-service/venv/bin/activate
+    python seed.py
+    if [ $? -eq 0 ]; then
+        echo "Seeding successful"
+        break
+    else
+        retry_count=$((retry_count+1))
+        echo "Seeding failed, retrying in 5 seconds... (Attempt $retry_count/$max_retries)"
+        sleep 5
+    fi
+done
 cd ..
 
-# Start frontend
-cd frontend/frontend
+# Start frontend (correct path: frontend/, not frontend/frontend)
+cd frontend
 PORT=3006 npm start > /tmp/frontend.log 2>&1 &
-cd ../..
+cd ..
 
 sleep 20
 
-# Start automation (the script name is always automate.js after copying)
+# Start automation
 cd automation
 node automate.js > /tmp/automation.log 2>&1 &
 
