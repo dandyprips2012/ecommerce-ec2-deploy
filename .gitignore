@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+
+# Node
+node_modules/
+npm-debug.log
+package-lock.json   # optional – you can keep it if you want exact dependency versions
+
+# React build
+frontend/frontend/build/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+*.log
+*.db
+*.installed
+deploy_resources.json   # if created by cleanup script

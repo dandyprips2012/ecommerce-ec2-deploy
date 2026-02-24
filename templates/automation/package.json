@@ -1,0 +1,9 @@
+{
+  "name": "automation",
+  "version": "1.0.0",
+  "description": "HTTP traffic generator for e-commerce platform",
+  "main": "traffic.js",
+  "scripts": {
+    "start": "node traffic.js"
+  }
+}
