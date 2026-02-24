@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const BASE_URL = 'http://localhost';
 
 const productNames = ['Laptop', 'Mouse', 'Keyboard', 'Monitor', 'USB Cable', 'Webcam', 'Headset', 'SSD', 'RAM', 'GPU'];

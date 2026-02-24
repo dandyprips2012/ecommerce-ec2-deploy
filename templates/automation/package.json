@@ -5,5 +5,8 @@
   "main": "traffic.js",
   "scripts": {
     "start": "node traffic.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
   }
 }
