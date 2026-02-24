@@ -131,13 +131,7 @@ def main():
     else:
         print("Automation node_modules found, skipping npm install.")
 
-    # 7. Seed the database
-    print("\nSeeding database...")
-    seed_venv = os.path.join(ROOT_DIR, 'backend', 'product-service', 'venv', 'bin', 'activate')
-    # Use '.' for activation
-    run_cmd(f'. {seed_venv} && python seed.py', cwd=os.path.join(ROOT_DIR, 'backend'), shell=True)
-
-    # 8. Start all services
+    # 7. Start all services (launch.sh will also seed the database after services are up)
     print("\nStarting all services...")
     run_cmd('./launch.sh', cwd=ROOT_DIR)
 
